@@ -227,9 +227,9 @@
             } else if (givenUnit === 'volume' && requiredUnit === 'weightCondensed') {
                 result = inputValue * materials[materialIndex].volumeToCondensed;
             } else if (givenUnit === 'weightPouredLoose' && requiredUnit === 'volume') {
-                result = inputValue / materials[materialIndex].volumeToPouredLoose;
+                result = (1/materials[materialIndex].volumeToPouredLoose) *  inputValue;
             } else if (givenUnit === 'weightCondensed' && requiredUnit === 'volume') {
-                result = inputValue / materials[materialIndex].volumeToCondensed;
+                result = (1/materials[materialIndex].volumeToCondensed) * inputValue;
             }
 
     
