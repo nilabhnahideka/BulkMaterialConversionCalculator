@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        /* The switch - the box around the slider */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 80px;
+            height: 34px;
+        }
+
+        /* Hide default HTML checkbox */
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* The slider */
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            border-radius: 34px;
+            transition: 0.4s;
+        }
+
+        .slider:before {
+            content: "Tons";
+            position: absolute;
+            top: 50%;
+            left: 8px;
+            transform: translateY(-50%);
+            width: 40px;
+            text-align: center;
+            color: #fff;
+            transition: inherit;
+        }
+
+        .slider:after {
+            content: "Cubic Meters";
+            position: absolute;
+            top: 50%;
+            right: 8px;
+            transform: translateY(-50%);
+            width: 100px;
+            text-align: center;
+            color: #007bff;
+            transition: inherit;
+        }
+
+        input:checked + .slider {
+            background-color: #007bff;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(46px) translateY(-50%);
+            content: "Cubic Meters";
+        }
+
+        input:checked + .slider:after {
+            transform: translateX(-96px) translateY(-50%);
+            content: "Tons";
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        select, input {
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="calculator">
+    <h1>Material Converter</h1>
+    <div>
+        <label for="unitToggle">Unit:</label>
+        <label class="switch">
+            <input type="checkbox" id="unitToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
+    <div>
+        <label for="inputValue">Amount:</label>
+        <input type="number" id="inputValue" placeholder="Enter amount">
+    </div>
+    <div>
+        <label for="material">Material:</label>
+        <select id="material">
+            <option value="0">Sand 0-2</option>
+            <option value="1">Kies 2-8</option>
+            <!-- Add more options for other materials -->
+        </select>
+    </div>
+    <div class="result" id="result"></div>
+</div>
+<!-- Static list of materials -->
+    <div class="material-list">
+        <h2>Material Reference</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Material</th>
+                    <th>Volume</th>
+                    <th>Weight (Poured Loose)</th>
+                    <th>Weight (Condensed)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Sand 0-2</td>
+                    <td>1 m³</td>
+                    <td>1.56 t</td>
+                    <td>1.85 t</td>
+                </tr>
+                <tr>
+                    <td>Kies 2-8</td>
+                    <td>1 m³</td>
+                    <td>1.70 t</td>
+                    <td>    </td>
+                </tr>
+                <tr>
+                    <td>Kies 8-16</td>
+                    <td>1 m³</td>
+                    <td>1.78 t</td>
+                    <td>    </td>
+                </tr>
+                <tr>
+                    <td>Kies 8-32</td>
+                    <td>1 m³</td>
+                    <td>1.78 t</td>
+                    <td>    </td>
+                </tr>
+                <tr>
+                    <td>Kiessand 0-32</td>
+                    <td>1 m³</td>
+                    <td>1.72 t</td>
+                    <td>2.20 t</td>
+                </tr>
+                <tr>
+                    <td>Kalksteinschotter 32-45 mm</td>
+                    <td>1 m³</td>
+                    <td>1.52 t</td>
+                    <td>1.75 t</td>
+                </tr>
+                <tr>
+                    <td>Kalksteinschotter 45-56 mm</td>
+                    <td>1 m³</td>
+                    <td>1.52 t</td>
+                    <td>1.75 t</td>
+                </tr>
+                <tr>
+                    <td>Kalksteinsplitt 5-32 mm</td>
+                    <td>1 m³</td>
+                    <td>1.56 t</td>
+                    <td>1.75 t</td>
+                </tr>
+                <tr>
+                    <td>Naturstein 0-200 mm</td>
+                    <td>1 m³</td>
+                    <td>1.75 t</td>
+                    <td>2.10 t</td>
+                </tr>
+                <tr>
+                    <td>Felsgestein</td>
+                    <td>1 m³</td>
+                    <td>1.70 t</td>
+                    <td>2.04 t</td>
+                </tr>
+                <tr>
+                    <td>Siebschutt</td>
+                    <td>1 m³</td>
+                    <td>1.80 t</td>
+                    <td>2.08 t</td>
+                </tr>
+                <tr>
+                    <td>Schottertragschicht STS (Hartgestein)</td>
+                    <td>1 m³</td>
+                    <td>1.85 t</td>
+                    <td>2.25 t</td>
+                </tr>
+                <tr>
+                    <td>Frotschutzschicht FSS (Hartgestein)</td>
+                    <td>1 m³</td>
+                    <td>1.85 t</td>
+                    <td>2.25 t</td>
+                </tr>
+                <tr>
+                    <td>Bituminöse Tragschicht</td>
+                    <td>1 m³</td>
+                    <td>    </td>
+                    <td>2.36 t</td>
+                </tr>
+                <tr>
+                    <td>Bituminöse Deckschicht</td>
+                    <td>1 m³</td>
+                    <td>    </td>
+                    <td>2.39 t</td>
+                </tr>
+                <tr>
+                    <td>Bituminös Binder</td>
+                    <td>1 m³</td>
+                    <td>    </td>
+                    <td>2.36 t</td>
+                </tr>
+                <tr>
+                    <td>Bituminös Gussasphalt</td>
+                    <td>1 m³</td>
+                    <td>    </td>
+                    <td>2.45 t</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+<script>
+    const materials = [
+        { name: "Sand 0-2", volumeToPouredLoose: 1.56, volumeToCondensed: 1.85 },
+        { name: "Kies 2-8", volumeToPouredLoose: 1.70, volumeToCondensed: null },
+        { name: "Kies 8-16", volumeToPouredLoose: 1.78, volumeToCondensed: null },
+            { name: "Kies 8-32", volumeToPouredLoose: 1.78, volumeToCondensed: null },
+            { name: "Kiessand 0-32", volumeToPouredLoose: 1.72, volumeToCondensed: 2.20 },
+            { name: "Kalksteinschotter 32-45mm", volumeToPouredLoose: 1.52, volumeToCondensed: 1.75 },
+            { name: "Kalksteinschotter 45-56mm", volumeToPouredLoose: 1.52, volumeToCondensed: 1.75 },
+            { name: "Kalksteinsplitt 5-32mm", volumeToPouredLoose: 1.56, volumeToCondensed: 1.75 },
+            { name: "Naturstein 0-200mm", volumeToPouredLoose: 1.75, volumeToCondensed: 2.10 },
+            { name: "Felsgestein", volumeToPouredLoose: 1.70, volumeToCondensed: 2.04 },
+            { name: "Siebschutt", volumeToPouredLoose: 1.80, volumeToCondensed: 2.08 },
+            { name: "Schottertragschicht STS (Hartgestein)", volumeToPouredLoose: 1.85, volumeToCondensed: 2.25 },
+            { name: "Frotschutzschicht FSS (Hartgestein)", volumeToPouredLoose: 1.85, volumeToCondensed: 2.25 },
+            { name: "Bituminöse Tragschicht", volumeToPouredLoose: null, volumeToCondensed: 2.36 },
+            { name: "Bituminöse Deckschicht", volumeToPouredLoose: null, volumeToCondensed: 2.39 },
+            { name: "Bituminös Binder", volumeToPouredLoose: null, volumeToCondensed: 2.36 },
+            { name: "Bituminös Gussasphalt", volumeToPouredLoose: null, volumeToCondensed: 2.45 }
+    ];
+
+    const unitToggle = document.getElementById('unitToggle');
+    const materialSelect = document.getElementById('material');
+    const inputValue = document.getElementById('inputValue');
+    const resultDiv = document.getElementById('result');
+
+    // Listen for changes in input value and material selection
+    inputValue.addEventListener('input', updateResult);
+    materialSelect.addEventListener('change', updateResult);
+    unitToggle.addEventListener('change', updateResult);
+
+    function updateResult() {
+        const materialIndex = materialSelect.value;
+        const material = materials[materialIndex];
+        const amount = parseFloat(inputValue.value);
+        const isTons = unitToggle.checked;
+
+        let resultText = '';
+
+        if (isTons) {
+            if (material.volumeToPouredLoose !== null) {
+                resultText = `Weight (Poured Loose): ${(amount * material.volumeToPouredLoose).toFixed(2)} tons`;
+            } else {
+                resultText = 'Weight (Poured Loose): -';
+            }
+
+            if (material.volumeToCondensed !== null) {
+                resultText += `<br>Weight (Condensed): ${(amount * material.volumeToCondensed).toFixed(2)} tons`;
+            } else {
+                resultText += '<br>Weight (Condensed): -';
+            }
+        } else {
+            if (material.volumeToPouredLoose !== null) {
+                resultText = `Volume: ${(amount / material.volumeToPouredLoose).toFixed(2)} cubic meters`;
+            } else {
+                resultText = 'Volume: -';
+            }
+        }
+
+        resultDiv.innerHTML = resultText;
+    }
+</script>
+</body>
+</html>
